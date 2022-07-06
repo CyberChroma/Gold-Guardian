@@ -11,4 +11,9 @@ public class Projectile : MonoBehaviour
     {
         Destroy(gameObject, lifetime);
     }
+
+    public void SetDirection(float directionX, float directionZ)
+    {
+
+    }
 }
