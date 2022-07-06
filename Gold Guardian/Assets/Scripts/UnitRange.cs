@@ -18,7 +18,9 @@ public class UnitRange : MonoBehaviour
         {
             GameObject projectileLaunch = Instantiate(projectile, projectileSpawner.position, projectileSpawner.rotation);
             projectileLaunch.transform.position = projectileSpawner.position;
-            projectileLaunch.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(launchVelocity, 0, 0));
+
+            Rigidbody body = projectileLaunch.GetComponent<Rigidbody>();
+            body.AddRelativeForce(new Vector3(25, 0, 0), ForceMode.Impulse);
             
             lifetimeCoolDown = 0;
         }
