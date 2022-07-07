@@ -12,8 +12,12 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, lifetime);
     }
 
-    public void SetDirection(float directionX, float directionZ)
+    private void OnTriggerEnter(Collider other)
     {
-
+        if (other.tag != "Unit")
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }
