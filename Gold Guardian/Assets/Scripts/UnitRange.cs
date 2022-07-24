@@ -7,7 +7,7 @@ public class UnitRange : MonoBehaviour
 
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform projectileSpawner;
-    [SerializeField] private float launchVelocity;
+    [SerializeField] private float projectileSpeed;
     [SerializeField] private float cooldown;
 
     private float lifetimeCoolDown = Mathf.Infinity;
@@ -20,8 +20,8 @@ public class UnitRange : MonoBehaviour
             projectileLaunch.transform.position = projectileSpawner.position;
 
             Rigidbody body = projectileLaunch.GetComponent<Rigidbody>();
-            body.AddRelativeForce(new Vector3(25, 0, 0), ForceMode.Impulse);
-            
+            body.AddRelativeForce(new Vector3(projectileSpeed, 0, 0), ForceMode.Impulse);
+
             lifetimeCoolDown = 0;
         }
         lifetimeCoolDown += Time.deltaTime;

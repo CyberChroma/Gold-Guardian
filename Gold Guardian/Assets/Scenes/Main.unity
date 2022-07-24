@@ -263,7 +263,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 148950901}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55, z: 0}
+  m_LocalPosition: {x: 0.49, y: 1.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 2014093019390617656, guid: b804c47bde6e7fc479955e89fdb4e2ff, type: 3}
   projectileSpawner: {fileID: 102816825}
-  launchVelocity: 1000
+  projectileSpeed: 25
   cooldown: 2
 --- !u!1 &203844586
 GameObject:
