@@ -12,8 +12,9 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, lifetime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
         Destroy(gameObject);
     }
+
 }
