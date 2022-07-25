@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 1
-  origin: {fileID: 3189613189650895972}
+  damage: 10
 --- !u!65 &3189613189650895972
 BoxCollider:
   m_ObjectHideFlags: 0

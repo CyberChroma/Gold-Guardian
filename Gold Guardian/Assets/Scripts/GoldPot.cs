@@ -18,11 +18,11 @@ public class GoldPot : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);    // Declines the health but not below 0
         if (currentHealth > 0)
         {
-            // display lower
+            Debug.Log("ouch " + currentHealth);
         }
         else
         {
-            // game over
+            Debug.Log("game over...");
         }
     }
 }
