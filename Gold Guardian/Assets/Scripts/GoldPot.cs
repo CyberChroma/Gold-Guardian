@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GoldPot : MonoBehaviour
 {
 
     [SerializeField] private float startingHealth;
+    [SerializeField] private Slider healthbar;
     public float currentHealth { get; private set; }
+
 
     private void Awake()
     {
@@ -19,10 +22,13 @@ public class GoldPot : MonoBehaviour
         if (currentHealth > 0)
         {
             Debug.Log("ouch " + currentHealth);
+            healthbar.value -= (_damage / 100);
         }
         else
         {
             Debug.Log("game over...");
+            healthbar.value = 0;
+            gameObject.SetActive(false);
         }
     }
 }
