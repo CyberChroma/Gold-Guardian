@@ -72,19 +72,25 @@ public class PlayerMove : MonoBehaviour
         //Vector3 axisTowardsDown = Vector3.Cross(playerCamera.forward, Vector3.down);
         //Vector3 cameraAngledDown = Quaternion.AngleAxis(10, axisTowardsDown) * playerCamera.forward;
 
-        Vector3 startForward = transform.forward;
-        Vector3 targetForward = playerCamera.forward;
-        Vector3 torqueForwardDir = Vector3.Cross(startForward, targetForward);
-        rb.AddTorque(torqueForwardDir * rotSpeed);
-
         Vector3 startUp = transform.up;
         RaycastHit hit;
         Vector3 targetUp = Vector3.up;
         if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance, 1 << 6)) {
             targetUp = hit.normal;
+            Vector3 startForward = transform.forward;
+            Vector3 targetForward = Vector3.ProjectOnPlane(playerCamera.forward, Vector3.up);
+            Vector3 torqueForwardDir = Vector3.Cross(startForward, targetForward);
+            rb.AddTorque(torqueForwardDir * rotSpeed);
+        } else {
+            Vector3 startForward = transform.forward;
+            Vector3 targetForward = playerCamera.forward;
+            Vector3 torqueForwardDir = Vector3.Cross(startForward, targetForward);
+            rb.AddTorque(torqueForwardDir * rotSpeed);
         }
         Vector3 torqueUpDir = Vector3.Cross(startUp, targetUp);
         rb.AddTorque(torqueUpDir * rotSpeed);
+
+
     }
 
     private void OnTriggerStay(Collider other)
