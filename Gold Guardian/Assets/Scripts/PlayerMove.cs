@@ -72,17 +72,17 @@ public class PlayerMove : MonoBehaviour
     void Turn()
     {
         Vector3 startUp = transform.up;
-        RaycastHit hit;
         Vector3 targetUp = Vector3.up;
-        if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance, 1 << 6) || inPlaceMode) {
+        Vector3 startForward = transform.forward;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance, 1 << 6)) {
             targetUp = hit.normal;
-            Vector3 startForward = transform.forward;
             Vector3 targetForward = Vector3.ProjectOnPlane(playerCamera.forward, Vector3.up);
             Vector3 torqueForwardDir = Vector3.Cross(startForward, targetForward);
             rb.AddTorque(torqueForwardDir * rotSpeed);
+            print("fgdfg");
         }
         else {
-            Vector3 startForward = transform.forward;
             Vector3 targetForward = playerCamera.forward;
             Vector3 torqueForwardDir = Vector3.Cross(startForward, targetForward);
             rb.AddTorque(torqueForwardDir * rotSpeed);

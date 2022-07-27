@@ -45,7 +45,13 @@ public class PlayerUnitPlace : MonoBehaviour
             }
             if (previewUnit) {
                 // Move preview cube
-                //previewUnit.transform.position = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, -transform.up, out hit, 2, 1 << 6, QueryTriggerInteraction.Ignore)) {
+                    previewUnit.transform.position = hit.point;
+                    previewUnit.transform.rotation = Quaternion.LookRotation(transform.forward, hit.normal);
+                } else {
+                    previewUnit.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up);
+                }
             }
         }
     }
@@ -70,7 +76,7 @@ public class PlayerUnitPlace : MonoBehaviour
         playerMove.inPlaceMode = true;
         cameraFollow.inPlaceMode = true;
         cameraZoom.inPlaceMode = true;
-        previewUnit = Instantiate(testUnitPreviewPrefab, new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), Quaternion.identity, transform);
+        previewUnit = Instantiate(testUnitPreviewPrefab, new Vector3(transform.position.x, transform.position.y - 2, transform.position.z), Quaternion.identity, transform);
     }
 
     void ExitPlaceMode()
