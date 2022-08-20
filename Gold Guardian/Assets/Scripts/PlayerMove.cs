@@ -80,7 +80,6 @@ public class PlayerMove : MonoBehaviour
             Vector3 targetForward = Vector3.ProjectOnPlane(playerCamera.forward, Vector3.up);
             Vector3 torqueForwardDir = Vector3.Cross(startForward, targetForward);
             rb.AddTorque(torqueForwardDir * rotSpeed);
-            print("fgdfg");
         }
         else {
             Vector3 targetForward = playerCamera.forward;
