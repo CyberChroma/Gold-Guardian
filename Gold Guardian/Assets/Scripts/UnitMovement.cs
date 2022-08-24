@@ -9,8 +9,11 @@ public class UnitMovement : MonoBehaviour {
     }
     public MovementType movementType;
 
-    public Transform target;
+    private Transform closestOpposingCreature;
+    private Transform goldPot;
 
+    private Transform playerParent;
+    private Transform enemyParent; 
     private NavMeshAgent navMeshAgent;
     private UnitType unitType;
 
@@ -18,16 +21,28 @@ public class UnitMovement : MonoBehaviour {
     void Start() {
         navMeshAgent = GetComponent<NavMeshAgent>();
         unitType = GetComponent<UnitType>();
+        goldPot = GoldPot.instance.transform;
+        playerParent = GameObject.Find("Player Creatures").transform;
+        enemyParent = GameObject.Find("Enemy Creatures").transform;
     }
 
     // Update is called once per frame
     void Update() {
         if (unitType.type == UnitType.Type.enemy) {
-            // Temp get pot
-            navMeshAgent.destination = target.position;
+            // Go to the pot
+            navMeshAgent.destination = goldPot.position;
         } else {
-            // Temp get enemy unit
-            navMeshAgent.destination = target.position;
+            if (!closestOpposingCreature) {
+                GetClosestEnemy();
+            }
+            // Go towards the closest enemy
+            navMeshAgent.destination = closestOpposingCreature.position;
         }
+    }
+
+    void GetClosestEnemy() {
+        // Temp get list of all enemies from some enemy spawner
+        NavMeshAgent[] allEnemies = enemyParent.GetComponentsInChildren<NavMeshAgent>();
+        closestOpposingCreature = allEnemies[0].transform;
     }
 }

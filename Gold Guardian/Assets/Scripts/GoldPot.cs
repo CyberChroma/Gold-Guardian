@@ -5,15 +5,16 @@ using UnityEngine.UI;
 
 public class GoldPot : MonoBehaviour
 {
+    public static GoldPot instance;
 
     [SerializeField] private float startingHealth;
     [SerializeField] private Slider healthbar;
     public float currentHealth { get; private set; }
 
-
     private void Awake()
     {
         currentHealth = startingHealth;
+        instance = this;
     }
 
     public void TakeDamage(float _damage)
