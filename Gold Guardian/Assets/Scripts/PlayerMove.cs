@@ -14,6 +14,8 @@ public class PlayerMove : MonoBehaviour
     public Transform cameraPivot;
     public Transform playerCamera;
 
+    public LayerMask environmentLayers;
+
     [HideInInspector] public bool inPlaceMode;
 
     private Vector3 moveDir;
@@ -75,12 +77,11 @@ public class PlayerMove : MonoBehaviour
         Vector3 targetUp = Vector3.up;
         Vector3 startForward = transform.forward;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance, 1 << 6)) {
+        if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance, environmentLayers)) {
             targetUp = hit.normal;
             Vector3 targetForward = Vector3.ProjectOnPlane(playerCamera.forward, Vector3.up);
             Vector3 torqueForwardDir = Vector3.Cross(startForward, targetForward);
             rb.AddTorque(torqueForwardDir * rotSpeed);
-            print("fgdfg");
         }
         else {
             Vector3 targetForward = playerCamera.forward;
@@ -95,22 +96,22 @@ public class PlayerMove : MonoBehaviour
     {
         if (other.gameObject.layer == 6) {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, -transform.up, out hit, pushBackMaxDistance, 1 << 6)) {
+            if (Physics.Raycast(transform.position, -transform.up, out hit, pushBackMaxDistance, environmentLayers)) {
                 PushBack(hit);
             }
-            if (Physics.Raycast(transform.position, transform.forward, out hit, pushBackMaxDistance, 1 << 6)) {
+            if (Physics.Raycast(transform.position, transform.forward, out hit, pushBackMaxDistance, environmentLayers)) {
                 PushBack(hit);
             }
-            if (Physics.Raycast(transform.position, -transform.forward, out hit, pushBackMaxDistance, 1 << 6)) {
+            if (Physics.Raycast(transform.position, -transform.forward, out hit, pushBackMaxDistance, environmentLayers)) {
                 PushBack(hit);
             }
-            if (Physics.Raycast(transform.position, transform.right, out hit, pushBackMaxDistance, 1 << 6)) {
+            if (Physics.Raycast(transform.position, transform.right, out hit, pushBackMaxDistance, environmentLayers)) {
                 PushBack(hit);
             }
-            if (Physics.Raycast(transform.position, -transform.right, out hit, pushBackMaxDistance, 1 << 6)) {
+            if (Physics.Raycast(transform.position, -transform.right, out hit, pushBackMaxDistance, environmentLayers)) {
                 PushBack(hit);
             }
-            if (Physics.Raycast(transform.position, transform.up, out hit, pushBackMaxDistance, 1 << 6)) {
+            if (Physics.Raycast(transform.position, transform.up, out hit, pushBackMaxDistance, environmentLayers)) {
                 PushBack(hit);
             }
         }
