@@ -22,8 +22,8 @@ public class UnitMovement : MonoBehaviour {
         navMeshAgent = GetComponent<NavMeshAgent>();
         unitType = GetComponent<UnitType>();
         goldPot = GoldPot.instance.transform;
-        playerParent = GameObject.Find("Player Creatures").transform;
-        enemyParent = GameObject.Find("Enemy Creatures").transform;
+        playerParent = GameObject.Find("PlayerCreatures").transform;
+        enemyParent = GameObject.Find("EnemyCreatures").transform;
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class UnitMovement : MonoBehaviour {
             // Go to the pot
             navMeshAgent.destination = goldPot.position;
         } else {
-            if (!closestOpposingCreature) {
+            if (closestOpposingCreature == null) {
                 GetClosestEnemy();
             }
             // Go towards the closest enemy
@@ -41,8 +41,20 @@ public class UnitMovement : MonoBehaviour {
     }
 
     void GetClosestEnemy() {
-        // Temp get list of all enemies from some enemy spawner
         NavMeshAgent[] allEnemies = enemyParent.GetComponentsInChildren<NavMeshAgent>();
-        closestOpposingCreature = allEnemies[0].transform;
+        float shortestDistance = Mathf.Infinity;
+        NavMeshPath path = new NavMeshPath();
+        for (int i = 0; i < allEnemies.Length; i++) {
+            navMeshAgent.CalculatePath(allEnemies[i].transform.position, path);
+            float pathDistance = 0;
+            for (int j = 0; j < path.corners.Length - 1; j++) {
+                pathDistance += Vector3.Distance(path.corners[j], path.corners[j + 1]);
+            }
+            if (pathDistance < shortestDistance) {
+                closestOpposingCreature = allEnemies[i].transform;
+                shortestDistance = pathDistance;
+            }
+        }
+        navMeshAgent.destination = closestOpposingCreature.position;
     }
 }
